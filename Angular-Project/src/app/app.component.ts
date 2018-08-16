@@ -8,9 +8,11 @@ import { WidgetService } from './widget.service';
 })
 export class AppComponent {
     widgets: any;
+    widget: any;
 
     constructor(private _widgetService: WidgetService) {
         this.widgets = [];
+        this.widget = { title: '', description: '', qty: 0, price: 0 };
         this.getWidgets();
     }
 
@@ -23,6 +25,19 @@ export class AppComponent {
             },
             (err) => {
                 console.log('Error: ', err);
+            }
+        );
+    }
+
+    createWidget() {
+        const tempObservable = this._widgetService.createWidget(this.widget);
+        tempObservable.subscribe(
+            (response) => {
+                console.log(response);
+                this.getWidgets();
+            },
+            (error) => {
+                console.log(error);
             }
         );
     }

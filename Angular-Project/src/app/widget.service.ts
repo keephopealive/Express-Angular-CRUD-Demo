@@ -12,4 +12,8 @@ export class WidgetService {
         return this._http.get('/widgets');
     }
 
+    createWidget(widget) {
+        return this._http.post('/widgets', widget);
+    }
+
 }

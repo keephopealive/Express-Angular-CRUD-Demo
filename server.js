@@ -28,10 +28,27 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, 'Angular-Project/dist/Angular-Project')));
 
 // Routes
-app.get('/widgets', function(req, res){
-    Widget.find({}, function(err, widgets){
+app.get('/widgets', function(req, res) {
+    Widget.find({}, function(err, widgets) {
         res.json(widgets);
     });
+})
+
+app.post('/widgets', function(req, res){
+    console.log("SERVER > POST /wigets > POSTDATA: ", req.body);
+    widgetInstance = new Widget();
+    widgetInstance.title = req.body.title
+    widgetInstance.description = req.body.description
+    widgetInstance.qty = req.body.qty
+    widgetInstance.price = req.body.price
+    widgetInstance.save(function(err){
+        if (err) {
+            console.log(err);
+            res.json(err);
+        } else {
+            res.json(widgetInstance);
+        }
+    })
 })
 
 // Listener

@@ -1,3 +1,12 @@
+<form (submit)="createWidget()">
+    <input type="text" name="widget.title" [(ngModel)]="widget.title">
+    <input type="text" name="widget.description" [(ngModel)]="widget.description">
+    <input type="text" name="widget.qty" [(ngModel)]="widget.qty">
+    <input type="text" name="widget.price" [(ngModel)]="widget.price">
+    <input type="submit" value="Create a Widget">
+</form>
+{{ widget | json }}
+
 <ul>
     <li *ngFor="let widget of widgets">
         {{ widget.title }} - {{ widget.description}}

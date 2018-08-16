@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 
 import { WidgetService } from './widget.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [WidgetService],
