@@ -51,6 +51,55 @@ app.post('/widgets', function(req, res){
     })
 })
 
+app.get('/widgets/:id', function(req, res){
+    console.log("@@@@ 3")
+    Widget.findById(req.params.id, function(err, widget){
+        if(err){
+            res.json(err);
+        } else {
+            console.log("@@@@ 4", widget)
+            res.json(widget);
+        }
+    })
+})
+
+app.delete('/widgets/:id', function(req, res) {
+    console.log("SERVER > delete widgets/id, id:", req.params.id)
+    Widget.deleteOne({_id: req.params.id}, function(err){
+        if(err){
+            res.json(err);
+        } else {
+            res.json(true);
+        }
+    })
+})
+
+app.put('/widgets/:id', function(req, res) {
+    console.log("SERVER > put widgets/id");
+    console.log("SERVER > put widgets/id params.id", req.params.id);
+    console.log("SERVER > put widgets/id body", req.body);
+    Widget.findById(req.params.id, function(err, widget){
+        console.log("SERVER > findbyid, err ", err)
+        console.log("SERVER > findbyid, widget ", widget)
+        if(err){
+
+        } else {
+            console.log("widget found for update:", widget);
+            widget.title = req.body.title;
+            widget.description = req.body.description;
+            widget.qty = req.body.qty;
+            widget.price = req.body.price;
+            widget.save(function(err){
+                if(err){
+                    res.json(err);
+                } else {
+                    res.json(true);
+                }
+            })
+        }
+    })
+})
+
 // Listener
 app.listen(8000, function(){
     console.log("Server started at port 8000");

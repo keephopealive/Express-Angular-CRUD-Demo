@@ -1,3 +1,5 @@
+<hr>
+<h5>Create Widget</h5>
 <form (submit)="createWidget()">
     <input type="text" name="widget.title" [(ngModel)]="widget.title">
     <input type="text" name="widget.description" [(ngModel)]="widget.description">
@@ -5,10 +7,26 @@
     <input type="text" name="widget.price" [(ngModel)]="widget.price">
     <input type="submit" value="Create a Widget">
 </form>
-{{ widget | json }}
 
+<hr>
+
+<h5>Widget Edit:</h5>
+{{ widgetDetails | json }}
+<form (submit)="updateWidget()">
+    <input type="text" name="widgetDetails.title" [(ngModel)]="widgetDetails.title">
+    <input type="text" name="widgetDetails.description" [(ngModel)]="widgetDetails.description">
+    <input type="text" name="widgetDetails.qty" [(ngModel)]="widgetDetails.qty">
+    <input type="text" name="widgetDetails.price" [(ngModel)]="widgetDetails.price">
+    <input type="submit" value="Create a Widget">
+</form>
+
+<hr>
+
+<h5>Widget List</h5>
 <ul>
     <li *ngFor="let widget of widgets">
-        {{ widget.title }} - {{ widget.description}}
+        {{ widget.title }}
+        <button (click)="getWidget(widget._id)">Get One</button>
+        <button (click)="deleteWidget(widget._id)">Delete</button>
     </li>
 </ul>

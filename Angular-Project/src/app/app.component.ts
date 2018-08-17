@@ -9,10 +9,12 @@ import { WidgetService } from './widget.service';
 export class AppComponent {
     widgets: any;
     widget: any;
+    widgetDetails: any;
 
     constructor(private _widgetService: WidgetService) {
         this.widgets = [];
         this.widget = { title: '', description: '', qty: 0, price: 0 };
+        this.widgetDetails = { title: '', description: '', qty: 0, price: 0 };
         this.getWidgets();
     }
 
@@ -38,6 +40,46 @@ export class AppComponent {
             },
             (error) => {
                 console.log(error);
+            }
+        );
+    }
+
+    getWidget(id) {
+        console.log("@@@@ 1");
+        const tempObservable = this._widgetService.getWidget(id);
+        tempObservable.subscribe(
+            (success) => {
+                console.log("@@@@ 5 response:", success);
+                this.widgetDetails = success;
+            },
+            (error) => {
+
+            }
+        );
+    }
+
+    deleteWidget(id) {
+        console.log("deleteWidget, id: ", id);
+        const tempObservable = this._widgetService.deleteWidget(id);
+        tempObservable.subscribe(
+            (success) => {
+                this.getWidgets();
+            },
+            (error) => {
+
+            }
+        );
+
+    }
+
+    updateWidget() {
+        const tempObservable = this._widgetService.updateWidget(this.widgetDetails);
+        tempObservable.subscribe(
+            (success) => {
+                this.getWidgets();
+            },
+            (error) => {
+
             }
         );
     }
